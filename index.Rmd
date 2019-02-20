@@ -1,0 +1,9 @@
+
+
+```{r}
+link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.rda'
+load(file=url(link))
+
+library(ggplot2)
+```
+
