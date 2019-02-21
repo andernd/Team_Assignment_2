@@ -1,9 +1,18 @@
 
 
 ```{r}
-link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.rda'
+link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.RData'
 load(file=url(link))
 
 library(ggplot2)
+```
+
+```{r scatterplot}
+par(mfrow=c(1,2)) #1 rows, and two columns, by row:
+
+box1 = ggplot(Internet,ISP, aes(x=Subscribed.Speed, y=Download.Speed)) 
+
+box1 + geom_point()
+
 ```
 
