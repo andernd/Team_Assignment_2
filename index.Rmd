@@ -3,7 +3,6 @@
 ```{r}
 link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.RData'
 load(file=url(link))
-
 library(ggplot2)
 
 box1 = ggplot(Internet, aes(x=Subscribed.Speed, y=Download.Speed))
@@ -25,3 +24,20 @@ boxplot(Subscribed.Speed~Download.Speed,data=Internet, ISP = 'CenturyLink')
 boxplot(Subscribed.Speed~Download.Speed,data=Internet, ISP = 'AT&T')
 ```
 
+```{r KimData, eval=FALSE}
+ISP <- factor(Internet$ISP)
+df1 <- data.frame(ISP, Internet$Subscribed.Speed, Internet$Download.Speed, Internet$Upload.Speed)
+names(df1) <- c("ISP", "Subscribed", "Download", "Upload")
+df1
+```
+
+```{r KimScatter, eval=FALSE}
+par(mfrow=c(2,2)) # How to divide the screen into 2 rows, and two columns, with the boxplots first plotted by/across the rows:
+
+plot(Subscribed~Download, data=df1, subset = ISP=="Wave", main="Wave Subscribed vs Download Speed") 
+
+plot(Subscribed~Download, data=df1, subset = ISP=="CenturyLink", main="Century Link Subscribed vs Download Speed")
+
+plot(Subscribed~Download, data=df1, subset = ISP=="GorgeNet", main="GorgeNet Subscribed vs Actual Download")
+
+```
