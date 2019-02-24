@@ -1,9 +1,27 @@
 
 
 ```{r}
-link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.rda'
+link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.RData'
 load(file=url(link))
 
 library(ggplot2)
+
+box1 = ggplot(Internet, aes(x=Subscribed.Speed, y=Download.Speed))
+
+box1 + geom_point()
+
+
+
+```
+
+
+```{r}
+par(mfrow=c(2,2))
+
+boxplot(Subscribed.Speed~Download.Speed,data=Internet, subset=(ISP='Wave'))
+
+boxplot(Subscribed.Speed~Download.Speed,data=Internet, ISP = 'CenturyLink')
+
+boxplot(Subscribed.Speed~Download.Speed,data=Internet, ISP = 'AT&T')
 ```
 
