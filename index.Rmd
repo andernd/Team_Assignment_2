@@ -69,3 +69,37 @@ box4 + scale_x_continuous(limits=c(0,125), breaks=seq(0,125,25)) + scale_y_conti
 
 ```
 
+```{r}
+
+df1$gap=df1$Download - df1$Subscribed
+
+base = ggplot(df1, aes(ISP,gap)) 
+
+plot1 = base + geom_boxplot()
+
+plot2 = plot1 + scale_y_continuous(limits=c(-100,50))
+
+plot3 = plot2 + labs(title='Most download speeds are lower than advertised',
+                     x=NULL,
+                     y='Difference between advertised and measured speeds',
+                     caption='Source: Stevenson Business and Organization Internet Survey 
+                   Note: Wave Outlier of 500 Mbps Omitted')
+
+plot4  = plot3 + theme(plot.margin=unit(c(.75,1.25,.75,.75),'cm'),
+                    panel.background=element_rect(fill='white'),
+                    axis.line.x=element_line(color='black'),
+                    axis.ticks.y=element_blank(),
+                    text=element_text(color='gray25'),
+                    plot.title=element_text(size=17,
+                                            hjust=.5,
+                                            face='bold',
+                                            margin=unit(c(0,0,1,0),'cm')),
+                    plot.caption=element_text(hjust=1,
+                                              size=7))
+
+plot4 + coord_flip() + geom_hline(yintercept=0,
+                                  linetype='dashed',
+                                  color='gray25')
+
+```
+
