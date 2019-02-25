@@ -119,7 +119,7 @@ box1 + geom_segment(aes(y = 0,
 
 box2 = box1 + geom_point() + facet_wrap( ~ ISP, nrow = 2) + theme(axis.text.x = element_text(angle = 45, hjust = .7, vjust = .7), axis.title.y = element_text(vjust = 3), axis.title.x = element_text(vjust = -0.5), plot.caption = element_text(vjust = -0.5)) +labs(title = "Download Speed in Relation To Subscribed Speed", x = "Subscribed Speed", y = "Download Speed", caption = "Source:Stevenson Business and Organization Internet Survey")
 
-box3 = box2 + scale_x_continuous(breaks = seq(0,150,25), limits=c(0,150))
+box3 = box2 + scale_x_continuous(breaks = seq(0,150,25), limits=c(0,150)) + scale_y_continuous(breaks = seq(0,150,25), limits = c(0,150))
 
 box3
 ```
@@ -132,7 +132,7 @@ box1 + geom_segment(aes(y = 0, x = Subscribed.Speed, yend = Upload.Speed, xend =
 
 box2 = box1 + geom_point() + facet_wrap( ~ ISP, nrow = 2) + theme(axis.text.x = element_text(angle = 45, hjust = .7, vjust = .7), axis.title.y = element_text(vjust = 3), axis.title.x = element_text(vjust = -0.5), plot.caption = element_text(vjust = -0.5)) +labs(title = "Upload Speed in Relation To Subscribed Speed", x = "Subscribed Speed", y = "Upload Speed", caption = "Source:Stevenson Business and Organization Internet Survey")
 
-box3 = box2 + scale_x_continuous(breaks = seq(0,150,25), limits=c(0,150))
+box3 = box2 + scale_x_continuous(breaks = seq(0,150,25), limits=c(0,150)) + scale_y_continuous(breaks = seq(0,150,25), limits = c(0,150))
 box3
 
 ```
