@@ -6,19 +6,25 @@ load(file=url(link))
 library(ggplot2)
 
 box1 = ggplot(Internet, aes(x=Subscribed.Speed, y=Download.Speed))
-
 box1 + geom_point()
-
-
 
 ```
 
 
 ```{r KimData, eval=TRUE}
 ISP <- factor(Internet$ISP)
+str(ISP)
+levels(ISP)
+
+#original dataframe w/ all ISPs
 df1 <- data.frame(ISP, Internet$Subscribed.Speed, Internet$Download.Speed, Internet$Upload.Speed)
 names(df1) <- c("ISP", "Subscribed", "Download", "Upload")
 df1
+
+#subsetting the data to only include Wave CL and GorgeNet
+df2 <- subset(df1, ISP %in% c("Wave", "CenturyLink", "GorgeNet"))
+df2
+
 ```
 
 ```{r KimScatter, eval=TRUE}
@@ -136,7 +142,7 @@ box3
 ```
 
 ```{r}
-base = ggplot(Internet, aes(x=Subscribed.Speed, y=Download.Speed))
+base = ggplot(df2, aes(x=Subscribed, y=Download))
 
 box1 = base + geom_point() + plot.new()
 
@@ -156,6 +162,7 @@ box6 = box5 + labs(title=Title, subtitle = 'Stevenson, WA',
                    y = 'Download Speed (Megabytes/Second)',
                    caption='Source: Stevenson Business and Organization Internet Survey
                    Note: Wave Outlier of 500 Mbps Omitteed')
+
 box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
                     plot.title=(element_text(face='bold',
                                             size=15,
