@@ -45,10 +45,11 @@ plot(Subscribed~Download, data=df1, subset = ISP=="GorgeNet", main="GorgeNet Sub
 ISP <- factor(Internet$ISP)
 df1 <- data.frame(ISP, Internet$Subscribed.Speed, Internet$Download.Speed, Internet$Upload.Speed)
 names(df1) <- c("ISP", "Subscribed", "Download", "Upload")
+df2 <- subset(df1, ISP %in% c("Wave", "CenturyLink", "GorgeNet"))
 
 library(ggplot2)
 
-box1 = ggplot(df1, aes(x=Subscribed, y=Download, color=ISP)) + geom_point()
+box1 = ggplot(df2, aes(x=Subscribed, y=Download)) + geom_point()
 
 box2 = box1 + labs(title='Most download speeds are lower than advertised',
                    x='Subscribed speed (Mbps)',
@@ -70,7 +71,9 @@ box4 = box3 + geom_abline(intercept=0,
                           slope=1,
                           linetype='dashed')
 
-box4 + scale_x_continuous(limits=c(0,125), breaks=seq(0,125,25)) + scale_y_continuous(limits=c(0,125), breaks=seq(0,125,25))
+box5 = box4 + scale_x_continuous(limits=c(0,125), breaks=seq(0,125,25)) + scale_y_continuous(limits=c(0,125), breaks=seq(0,125,25))
+
+box5 + facet_wrap( ~ ISP, nrow = 1)
 ```
 
 ```{r}
