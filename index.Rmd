@@ -176,4 +176,41 @@ box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
 box7
 ```
 
+```{r}
+base = ggplot(df2, aes(x=Subscribed, y=Upload))
+
+box1 = base + geom_point() + plot.new()
+
+box2 = box1 + geom_abline(a=0,b=45,lty=2,lwd=0.5, alpha = 0.5)
+
+box3 = box2 + facet_wrap( ~ ISP ,nrow = 1)
+
+box4 = box3 + scale_y_continuous(breaks=c(0,0,40,60,80,100,120),
+                                 limits = c(0, 120))
+
+box5 = box4 + scale_x_continuous(breaks=c(0,30,60,90,120,150),
+                                 limits = c(0, 150))
+Title = 'Wave is doing best at providing the advertised speeds'
+
+box6 = box5 + labs(title=Title, subtitle = 'Stevenson, WA',
+                   x= 'Suscribed Speed (Megabytes/Second)',
+                   y = 'Download Speed (Megabytes/Second)',
+                   caption='Source: Stevenson Business and Organization Internet Survey
+                   Note: Wave Outlier of 500 Mbps Omitteed')
+
+box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
+                    plot.title=(element_text(face='bold',
+                                            size=15,
+                                            hjust=0.5)),
+                    plot.subtitle = (element_text(hjust = 0.5, vjust = 2)),
+                    plot.caption=element_text(size=8, vjust=-2),
+                    text=element_text(color='gray25', size = 11),
+                    axis.line.y=element_line(color = 'black'),
+                    axis.line.x=element_line(color='black'),
+                    axis.text=element_text(size=8))
+box7
+```
+
+
+
 
