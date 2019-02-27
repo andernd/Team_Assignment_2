@@ -1,17 +1,23 @@
 
+<br> 
+<center><img src="http://i.imgur.com/sSaOozN.png" width="500"></center>
+
+## Course: Visual Analytics for Policy and Management
+#
+### Second assignment: Bivariate Plots 
+#
+#
+#### By Nathan Anderson-Hobbs, Johnson Nguyen, Kim Pearson & Marcela Vázquez
+#
 
 ```{r}
 link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.RData'
 load(file=url(link))
 library(ggplot2)
-
-box1 = ggplot(Internet, aes(x=Subscribed.Speed, y=Download.Speed))
-box1 + geom_point()
-
 ```
 
 
-```{r KimData, eval=TRUE}
+```{r}
 ISP <- factor(Internet$ISP)
 str(ISP)
 levels(ISP)
@@ -27,119 +33,7 @@ df2
 
 ```
 
-```{r KimScatter, eval=TRUE}
-par(mfrow=c(2,2)) # How to divide the screen into 2 rows, and two columns, with the boxplots first plotted by/across the rows:
 
-plot(Subscribed~Download, data=df1, subset = ISP=="Wave", main="Wave Subscribed vs Download Speed") 
-
-plot(Subscribed~Download, data=df1, subset = ISP=="CenturyLink", main="Century Link Subscribed vs Download Speed")
-
-plot(Subscribed~Download, data=df1, subset = ISP=="GorgeNet", main="GorgeNet Subscribed vs Actual Download")
-
-```
-
-
-```{r}
-#Nathan's contribution
-
-ISP <- factor(Internet$ISP)
-df1 <- data.frame(ISP, Internet$Subscribed.Speed, Internet$Download.Speed, Internet$Upload.Speed)
-names(df1) <- c("ISP", "Subscribed", "Download", "Upload")
-
-library(ggplot2)
-
-box1 = ggplot(df1, aes(x=Subscribed, y=Download, color=ISP)) + geom_point()
-
-box2 = box1 + labs(title='Most download speeds are lower than advertised',
-                   x='Subscribed speed (Mbps)',
-                   y='Actual speed (Mbps)',
-                   caption = 'Source: Stevenson Business and Organization Internet Survey 
-                   Note: Wave Outlier of 500 Mbps Omitted')
-box3 = box2 + theme(plot.margin=unit(c(.75,.75,.75,.75),'cm'),
-                    panel.background=element_rect(fill='white'),
-                    axis.line=element_line(color='black'),
-                    text=element_text(color='gray25'),
-                    plot.title=element_text(size=17,
-                                            hjust=.5,
-                                            face='bold',
-                                            margin=unit(c(0,0,1,0),'cm')),
-                    plot.caption=element_text(hjust=1,
-                                              size=7))
-  
-box4 = box3 + geom_abline(intercept=0, 
-                          slope=1,
-                          linetype='dashed')
-
-box4 + scale_x_continuous(limits=c(0,125), breaks=seq(0,125,25)) + scale_y_continuous(limits=c(0,125), breaks=seq(0,125,25))
-```
-
-```{r}
-
-df1$gap=df1$Download - df1$Subscribed
-
-base = ggplot(df1, aes(ISP,gap)) 
-
-plot1 = base + geom_boxplot()
-
-plot2 = plot1 + scale_y_continuous(limits=c(-100,50))
-
-plot3 = plot2 + labs(title='Most download speeds are lower than advertised',
-                     x=NULL,
-                     y='Difference between advertised and measured speeds',
-                     caption='Source: Stevenson Business and Organization Internet Survey 
-                   Note: Wave Outlier of 500 Mbps Omitted')
-
-plot4  = plot3 + theme(plot.margin=unit(c(.75,1.25,.75,.75),'cm'),
-                    panel.background=element_rect(fill='white'),
-                    axis.line.x=element_line(color='black'),
-                    axis.ticks.y=element_blank(),
-                    text=element_text(color='gray25'),
-                    plot.title=element_text(size=17,
-                                            hjust=.5,
-                                            face='bold',
-                                            margin=unit(c(0,0,1,0),'cm')),
-                    plot.caption=element_text(hjust=1,
-                                              size=7))
-
-plot4 + coord_flip() + geom_hline(yintercept=0,
-                                  linetype='dashed',
-                                  color='gray25')
-
-```
-
-```{r}
-#Johnson Code - Download 
-box1 = ggplot(Internet, 
-              aes(x=Subscribed.Speed, 
-                  y=Download.Speed))
-
-box1 + geom_segment(aes(y = 0, 
-                        x = Subscribed.Speed, 
-                        yend = Download.Speed, 
-                        xend = Subscribed.Speed), 
-                        stat = 'identity', 
-                        color = "black")
-
-
-box2 = box1 + geom_point() + facet_wrap( ~ ISP, nrow = 2) + theme(axis.text.x = element_text(angle = 45, hjust = .7, vjust = .7), axis.title.y = element_text(vjust = 3), axis.title.x = element_text(vjust = -0.5), plot.caption = element_text(vjust = -0.5)) +labs(title = "Download Speed in Relation To Subscribed Speed", x = "Subscribed Speed", y = "Download Speed", caption = "Source:Stevenson Business and Organization Internet Survey")
-
-box3 = box2 + scale_x_continuous(breaks = seq(0,150,25), limits=c(0,150)) + scale_y_continuous(breaks = seq(0,150,25), limits = c(0,150))
-
-box3
-```
-```{r}
-#Johnson Code - Upload 
-box1 = ggplot(Internet, aes(x=Subscribed.Speed, y=Upload.Speed))
-
-box1 + geom_segment(aes(y = 0, x = Subscribed.Speed, yend = Upload.Speed, xend = Subscribed.Speed), stat = 'identity', color = "black")
-
-
-box2 = box1 + geom_point() + facet_wrap( ~ ISP, nrow = 2) + theme(axis.text.x = element_text(angle = 45, hjust = .7, vjust = .7), axis.title.y = element_text(vjust = 3), axis.title.x = element_text(vjust = -0.5), plot.caption = element_text(vjust = -0.5)) +labs(title = "Upload Speed in Relation To Subscribed Speed", x = "Subscribed Speed", y = "Upload Speed", caption = "Source:Stevenson Business and Organization Internet Survey")
-
-box3 = box2 + scale_x_continuous(breaks = seq(0,150,25), limits=c(0,150)) + scale_y_continuous(breaks = seq(0,150,25), limits = c(0,150))
-box3
-
-```
 
 ```{r}
 base = ggplot(df2, aes(x=Subscribed, y=Download))
@@ -163,7 +57,9 @@ box6 = box5 + labs(title=Title, subtitle = 'Stevenson, WA',
                    caption='Source: Stevenson Business and Organization Internet Survey
                    Note: Wave Outlier of 500 Mbps Omitteed')
 
-box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
+box7 = box6 + theme_bw()
+
+box8 = box7 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
                     plot.title=(element_text(face='bold',
                                             size=15,
                                             hjust=0.5)),
@@ -173,10 +69,11 @@ box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
                     axis.line.y=element_line(color = 'black'),
                     axis.line.x=element_line(color='black'),
                     axis.text=element_text(size=8))
-box7
+box8
 ```
 
 ```{r}
+
 base = ggplot(df2, aes(x=Subscribed, y=Upload))
 
 box1 = base + geom_point() + plot.new()
@@ -198,7 +95,9 @@ box6 = box5 + labs(title=Title, subtitle = 'Stevenson, WA',
                    caption='Source: Stevenson Business and Organization Internet Survey
                    Note: Wave Outlier of 500 Mbps Omitteed')
 
-box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
+box7 = box6 + theme_bw()
+
+box8 = box7 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
                     plot.title=(element_text(face='bold',
                                             size=15,
                                             hjust=0.5)),
@@ -208,7 +107,8 @@ box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
                     axis.line.y=element_line(color = 'black'),
                     axis.line.x=element_line(color='black'),
                     axis.text=element_text(size=8))
-box7
+box8
+
 ```
 
 
