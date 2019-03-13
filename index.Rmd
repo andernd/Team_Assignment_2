@@ -9,13 +9,13 @@
 _____
 <a id='part1'></a>
 
-# By Nathan Anderson-Hobbs, Johnson Nguyen, Kim Pearson & Marcela VÃ¡zquez
+# By Nathan Anderson-Hobbs, Johnson Nguyen, Kim Pearson & Marcela Vázquez
 ### 
 
 _____
 
 
-```{r}
+```{r message= FALSE, warning = FALSE}
 link='https://github.com/marcevl/Team-Assignments/raw/master/Internet.RData'
 load(file=url(link))
 library(ggplot2)
@@ -65,7 +65,7 @@ box7 = box6 + theme(plot.margin=unit(c(1,1,.5,.5),'cm'),
 box7
 ```
 
-```{r}
+```{r message= FALSE, warning = FALSE}
 base = ggplot(df2, aes(x=Subscribed, y=Download))
 
 box1 = base + geom_point()
